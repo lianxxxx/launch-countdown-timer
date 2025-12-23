@@ -1,16 +1,20 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-
+import CountdownTimer from "./components/CountdownTimer";
+import CountdownTitle from "./components/CountdownTitle";
+import SocialLinks from "./components/SocialLinks";
+import bgStars from "./assets/img/bg-stars.svg";
+import patternHills from "./assets/img/pattern-hills.svg";
 function App() {
   return (
     <>
-      <div className="flex items-center justify-center h-screen bg-blue-100">
-        <h1 className="text-4xl font-bold text-blue-800">
-          Tailwind is working!
-        </h1>
-      </div>
+      <main>
+        <img src={bgStars} alt="Stars" />
+
+        <CountdownTitle />
+        <CountdownTimer />
+        <SocialLinks />
+        <img src={patternHills} alt="Hills" />
+      </main>
     </>
   );
 }
