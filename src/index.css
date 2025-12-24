@@ -1,363 +1,269 @@
-    :root {
-    --grayish-blue: hsl(237, 18%, 59%);
-    --soft-red: hsl(345, 95%, 68%);
-    --white: hsl(0, 0%, 100%);
-    --dark-less-desaturated-blue: hsl(236, 21%, 20%);
-    --dark-desaturated-blue: hsl(236, 21%, 26%);
-    --very-dark-blue: hsl(235, 16%, 14%);
-    --very-black-blue: hsl(234, 17%, 12%);
-    }
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@300;400;500;700&display=swap');
+@import "tailwindcss";
 
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    }
+:root {
+  --grayish-blue: hsl(237, 18%, 59%);
+  --soft-red: hsl(345, 95%, 68%);
+  --white: hsl(0, 0%, 100%);
+  --dark-desaturated-blue: hsl(236, 21%, 26%);
+  --dark-less-desaturated-blue: hsl(236, 21%, 20%);
+  --very-dark-blue: hsl(235, 16%, 14%);
+  --very-black-blue: hsl(234, 17%, 12%);
 
-    body {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    height: 100vh;
-    height: 100dvh;
-    margin-inline: auto;
-    color: var(--white);
-    background: var(--very-dark-blue);
-    overflow: hidden;
-    }
+   /* Custom flip card colors */
+    --flip-card-top: 236 21% 22%;
+    --flip-card-bottom: 236 21% 26%;
+    --flip-card-shadow: 234 17% 12%;
+    --glow-pink: 345 95% 68%;
 
-    main {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    }
+}
 
-    h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin-top: -0.5rem;
-    }
 
-    h1,
-    .text {
-    letter-spacing: 0.2em;
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    h1,
-    .text,
-    .num {
-    font-variant-caps: all-small-caps;
-    }
+body {
+  font-family: 'Red Hat Text', sans-serif !important;
+  font-size: 14px;
+  font-weight: 700;
+  height: 100vh;
+  color: var(--white);
+  background: var(--very-dark-blue);
+  overflow: hidden;
+}
 
-    .stars {
-    height: 100%;
-    }
+main {
+  position: relative;          
+  flex-direction: column;
+  justify-content: center;    
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 
-    .hill {
-    bottom: 0;
-    height: 25%;
-    width: 100%;
-    }
+}
 
-    @media (max-width: 710px) {
-    .hill {
-        width: 300%;
-        left: -165%;
-    }
-    }
 
-    .stars,
-    .hill {
-    position: absolute;
-    z-index: -1;
-    }
+.bg-stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 
-    .countdown-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 67%;
-    width: 100vw;
-    width: 100dvw;
-    }
 
-    .countdown-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 7.5em;
-    gap: 1.5rem;
-    }
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;              
+}
 
-    @media(max-width:710px) {
-    .countdown-container {
-        gap: 1rem;
-    }
-    }
 
-    .cards-container {
-    display: flex;
-    }
+.hills {
+  position: absolute;          
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  object-fit: cover;
+  object-position: 80%;
+  z-index: 1;                  
+}
 
-    .cards {
-    display: block;
-    font-size: 5rem;
-    height: 9rem;
-    }
+.social-icons {
+  position: absolute;         
+  bottom: 20px;               
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  z-index: 2;  
+            
+}
 
-    @media(max-width:710px) {
-    .cards {
-        font-size: 2.25rem;
-        height: 4.75rem;
-    }
-    }
-
-    .card-element {
-    position: relative;
-    height: 100%;
-    }
-
-    .card-element__top,
-    .card-element__bottom {
-    text-align: center;
-    height: 50%;
-    width: 5rem;
-    overflow: hidden;
-    }
-
-    .card-element__top {
-    padding-top: 1.1rem;
-    color: var(--soft-red);
-    background-color: var(--dark-less-desaturated-blue);
-    }
-
-    .card-element__bottom {
-    padding-bottom: 1.1rem;
-    line-height: 0;
-    color: var(--soft-red);
-    background-color: var(--dark-desaturated-blue);
-    box-shadow: 0px 7px 0px 0px var(--very-black-blue);
-    }
-
-    .card-element-flip {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    }
-
-    .card-element-flip__top,
-    .card-element-flip__bottom {
-    position: absolute;
-    height: 50%;
-    width: 5rem;
-    text-align: center;
-    overflow: hidden;
-    }
-
-    @media(max-width:710px) {
-
-    .card-element__top,
-    .card-element__bottom {
-        width: 2.5rem;
-    }
-
-    .card-element-flip__top,
-    .card-element-flip__bottom {
-        width: 2.5rem;
-    }
-    }
-
-    .card-element-flip__top {
-    top: 0;
-    padding-top: 1.1rem;
-    color: var(--soft-red);
-    background-color: var(--dark-less-desaturated-blue);
-    transform-origin: bottom;
-    }
-
-    .card-element-flip__bottom {
-    bottom: 0;
-    line-height: 0;
-    padding-bottom: 1.1rem;
-    color: var(--soft-red);
-    background-color: var(--dark-desaturated-blue);
-    border-top: 1px solid var(--very-black-blue);
-    transform-origin: top;
-    }
-
-    .cards:nth-of-type(odd) .card-element__top,
-    .cards:nth-of-type(odd) .card-element__bottom,
-    .cards:nth-of-type(odd) .card-element-flip__top,
-    .cards:nth-of-type(odd) .card-element-flip__bottom {
-    padding-left: 1rem;
-    }
-
-    .cards:nth-of-type(even) .card-element__top,
-    .cards:nth-of-type(even) .card-element__bottom,
-    .cards:nth-of-type(even) .card-element-flip__top,
-    .cards:nth-of-type(even) .card-element-flip__bottom {
-    padding-right: 1rem;
-    }
-
-    @media(max-width:710px) {
-
-    .cards:nth-of-type(odd) .card-element__top,
-    .cards:nth-of-type(odd) .card-element__bottom,
-    .cards:nth-of-type(odd) .card-element-flip__top,
-    .cards:nth-of-type(odd) .card-element-flip__bottom {
-        padding-left: 1rem;
-    }
-
-    .cards:nth-of-type(even) .card-element__top,
-    .cards:nth-of-type(even) .card-element__bottom,
-    .cards:nth-of-type(even) .card-element-flip__top,
-    .cards:nth-of-type(even) .card-element-flip__bottom {
-        padding-right: 1rem;
-    }
-    }
-
-    .cards:nth-of-type(odd) .card-element__top,
-    .cards:nth-of-type(odd) .card-element-flip__top {
-    border-top-left-radius: 0.1em;
-    background-image: radial-gradient(circle at 0% 100%, var(--very-dark-blue) 5px, transparent 5px);
-    }
-
-    .cards:nth-of-type(even) .card-element__top,
-    .cards:nth-of-type(even) .card-element-flip__top {
-    border-top-right-radius: 0.1em;
-    background-image: radial-gradient(circle at 100% 100%, var(--very-dark-blue) 5px, transparent 5px);
-    }
-
-    .cards:nth-of-type(odd) .card-element__bottom,
-    .cards:nth-of-type(odd) .card-element-flip__bottom {
-    border-bottom-left-radius: 0.1em;
-    background-image: radial-gradient(circle at 0% 0%, var(--very-dark-blue) 5px, transparent 5px);
-    }
-
-    .cards:nth-of-type(even) .card-element__bottom,
-    .cards:nth-of-type(even) .card-element-flip__bottom {
-    border-bottom-right-radius: 0.1em;
-    background-image: radial-gradient(circle at 100% 0%, var(--very-dark-blue) 5px, transparent 5px);
-    }
-
-    .card-element-flip.anim .card-element-flip__top {
-    -webkit-animation: flip-top 0.9s linear;
-    animation: flip-top 0.9s linear;
-    }
-
-    .card-element-flip.anim .card-element-flip__bottom {
-    -webkit-animation: flip-bottom 0.9s linear;
-    animation: flip-bottom 0.9s linear;
-    }
-
-    @-webkit-keyframes flip-top {
-    0% {
-        transform: rotateX(0deg);
-    }
-
-    50%,
-    100% {
-        transform: rotateX(-90deg);
-    }
-    }
-
-    @keyframes flip-top {
-    0% {
-        transform: rotateX(0deg);
-    }
-
-    50%,
-    100% {
-        transform: rotateX(-90deg);
-    }
-    }
-
-    @-webkit-keyframes flip-bottom {
-
-    0%,
-    50% {
-        transform: rotateX(90deg);
-    }
-
-    100% {
-        transform: rotateX(0deg);
-    }
-    }
-
-    @keyframes flip-bottom {
-
-    0%,
-    50% {
-        transform: rotateX(90deg);
-    }
-
-    100% {
-        transform: rotateX(0deg);
-    }
-    }
-
-    .text {
-    font-size: 1.3rem;
-    margin-top: 20px;
-    color: var(--grayish-blue);
-    width: 100%;
-    text-align: center;
-    }
-
-    @media(max-width:710px) {
-    .text {
-        font-size: 0.9rem;
-    }
-    }
-
-    .socials {
-    position: absolute;
-    bottom: 3rem;
-    }
-
-    .social-icon {
-    margin: 20px 15px;
-    }
-
-    .social-icon path {
-    fill: var(--grayish-blue);
+/* for social icon hover */
+.icon:hover {
+  filter:
+    brightness(0)
+    saturate(100%)
+    invert(62%)
+    sepia(52%)
+    saturate(1095%)
+    hue-rotate(305deg)
+    brightness(101%)
+    contrast(96%);
     cursor: pointer;
-    }
+}
 
-    .social-icon:hover path {
-    fill: var(--soft-red);
-    }
+h1{
+    letter-spacing:5px;
+    color:var(--white);
+}
 
-    .attribution {
-    display: none;
-    position: absolute;
-    bottom: 1rem;
-    font-size: 11px;
-    text-align: center;
-    z-index: 3;
-    }
+.countdown-title{
+margin: 120px 40px 50px; 
+}
 
-    .attribution a {
-    color: hsl(228, 45%, 44%);
-    text-decoration: none;
-    }
+.card-number{
+    color:var(--soft-red);
+    font-weight: bolder;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.label-text{
+    margin: 10px 0;
+    color:var(--grayish-blue);
+    letter-spacing:3px;
     
+}
+/* Flip Card Container */
+.flip-card {
+  perspective: 400px;
+  position: relative;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Card halves */
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+  border-radius: 0.5rem;
+}
+
+.card-face-top {
+  top: 0;
+  background: linear-gradient(180deg, hsl(var(--flip-card-top)) 0%, hsl(var(--flip-card-bottom)) 100%);
+  border-bottom: 1px solid hsla(0, 0%, 0%, 0.2);
+  border-radius: 0.5rem 0.5rem 0 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.card-face-bottom {
+  bottom: 0;
+  background: linear-gradient(180deg, hsl(var(--flip-card-bottom)) 0%, hsl(var(--flip-card-top)) 100%);
+  border-radius: 0 0 0.5rem 0.5rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  box-shadow: 0 10px 20px -5px hsl(var(--flip-card-shadow));
+}
+
+/* Card numbers alignment */
+.card-face-top .card-number {
+  transform: translateY(50%);
+}
+
+.card-face-bottom .card-number {
+  transform: translateY(-50%);
+}
+
+/* Flip animation halves */
+.flip-card-top,
+.flip-card-bottom {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-top {
+  top: 0;
+  transform-origin: bottom center;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.flip-card-bottom {
+  bottom: 0;
+  transform-origin: top center;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+/* Flip animations */
+.flip-card-top-flip {
+  background: linear-gradient(180deg, hsl(var(--flip-card-top)) 0%, hsl(var(--flip-card-bottom)) 100%);
+  animation: flipTop 0.6s ease-in-out forwards;
+  z-index: 10;
+}
+
+.flip-card-top-flip .card-number {
+  transform: translateY(50%);
+}
+
+.flip-card-bottom-flip {
+  background: linear-gradient(180deg, hsl(var(--flip-card-bottom)) 0%, hsl(var(--flip-card-top)) 100%);
+  animation: flipBottom 0.6s ease-in-out forwards;
+  transform: rotateX(90deg);
+  z-index: 10;
+}
+
+.flip-card-bottom-flip .card-number {
+  transform: translateY(-50%);
+}
+
+/* Flip keyframes */
+@keyframes flipTop {
+  0% { transform: rotateX(0deg); }
+  100% { transform: rotateX(-90deg); }
+}
+
+@keyframes flipBottom {
+  0% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+/* Notches */
+.card-notch {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--very-dark-blue);
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.card-notch-left { left: -5px; }
+.card-notch-right { right: -5px; }
+
+
+/* Desktop size  */
+@media (min-width: 768px) {
+  .card-notch {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-notch-left { left: -7px; }
+  .card-notch-right { right: -7px; }
+
+
+  .label-text{
+    margin: 2px 0;
+    color:var(--grayish-blue);
+    letter-spacing:3px;  
+}
+
+.countdown-title{
+margin: 120px 0px 100px; 
+}
+}

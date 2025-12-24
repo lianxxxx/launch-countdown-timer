@@ -8,12 +8,18 @@ function App() {
   return (
     <>
       <main>
-        <img src={bgStars} alt="Stars" />
+        <img src={bgStars} alt="Stars" className="bg-stars" />
 
-        <CountdownTitle />
-        <CountdownTimer />
-        <SocialLinks />
-        <img src={patternHills} alt="Hills" />
+        <div className="content-wrapper">
+          <CountdownTitle />
+          <CountdownTimer />
+        </div>
+
+        <div className="social-icons">
+          <SocialLinks />
+        </div>
+
+        <img src={patternHills} alt="Hills" className="hills" />
       </main>
     </>
   );

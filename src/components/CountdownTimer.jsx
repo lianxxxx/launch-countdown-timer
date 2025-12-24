@@ -1,96 +1,47 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+import FlipCard from "./FlipCard";
 
-// FlipCard: single digit flip
-function FlipCard({ digit }) {
-  const [previous, setPrevious] = useState(digit);
-  const [flipping, setFlipping] = useState(false);
+const CountdownTimer = () => {
+  const [targetDate] = useState(() => {
+    const target = new Date();
+    target.setDate(target.getDate() + 14);
+    target.setHours(0, 0, 0, 0);
+    return target;
+  });
 
-  useEffect(() => {
-    if (digit === previous) return;
+  const calculateTimeLeft = () => {
+    const difference = targetDate.getTime() - new Date().getTime();
 
-    setFlipping(true);
-    const timeout = setTimeout(() => {
-      setPrevious(digit);
-      setFlipping(false);
-    }, 600); // match your CSS animation duration
-    return () => clearTimeout(timeout);
-  }, [digit, previous]);
+    if (difference <= 0) {
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    }
 
-  return (
-    <div className="cards">
-      <div className="card-element">
-        <div className="card-element__top">{digit}</div>
-        <div className="card-element__bottom">{previous}</div>
-        <div className={`card-element-flip ${flipping ? "anim" : ""}`}>
-          <div className="card-element-flip__top">{previous}</div>
-          <div className="card-element-flip__bottom">{digit}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Split number into two digits
-function splitDigits(num) {
-  return [Math.floor(num / 10), num % 10];
-}
-
-// Countdown Timer
-function CountdownTimer() {
-  const launchDate = useMemo(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 14);
-    return date;
-  }, []);
-
-  const [daysDigits, setDaysDigits] = useState([0, 0]);
-  const [hoursDigits, setHoursDigits] = useState([0, 0]);
-  const [minutesDigits, setMinutesDigits] = useState([0, 0]);
-  const [secondsDigits, setSecondsDigits] = useState([0, 0]);
-
-  useEffect(() => {
-    const updateTimer = () => {
-      const now = Date.now();
-      const diff = launchDate.getTime() - now;
-      const totalSeconds = diff > 0 ? Math.floor(diff / 1000) : 0;
-
-      const days = Math.floor(totalSeconds / 86400);
-      const hours = Math.floor(totalSeconds / 3600) % 24;
-      const minutes = Math.floor(totalSeconds / 60) % 60;
-      const seconds = totalSeconds % 60;
-
-      setDaysDigits(splitDigits(days));
-      setHoursDigits(splitDigits(hours));
-      setMinutesDigits(splitDigits(minutes));
-      setSecondsDigits(splitDigits(seconds));
+    return {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
     };
+  };
 
-    updateTimer(); // initialize immediately
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, [launchDate]);
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
 
-  const renderUnit = (digits, unitName) => (
-    <div className="cards-wrapper" id={unitName} key={unitName}>
-      <div className="cards-container">
-        {digits.map((digit, idx) => (
-          <FlipCard key={idx} digit={digit} />
-        ))}
-      </div>
-      <p className="text">
-        {unitName.charAt(0).toUpperCase() + unitName.slice(1)}
-      </p>
-    </div>
-  );
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [targetDate]);
 
   return (
-    <section className="countdown-container">
-      {renderUnit(daysDigits, "days")}
-      {renderUnit(hoursDigits, "hours")}
-      {renderUnit(minutesDigits, "minutes")}
-      {renderUnit(secondsDigits, "seconds")}
-    </section>
+    <div className="flex items-center justify-center  sm:gap-4 md:gap-6 lg:gap-8 gap-4">
+      <FlipCard value={timeLeft.days} label="Days" />
+      <FlipCard value={timeLeft.hours} label="Hours" />
+      <FlipCard value={timeLeft.minutes} label="Minutes" />
+      <FlipCard value={timeLeft.seconds} label="Seconds" />
+    </div>
   );
-}
+};
 
 export default CountdownTimer;
